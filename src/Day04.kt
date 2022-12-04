@@ -7,14 +7,11 @@ fun main() {
 
 	fun String.asRange(): IntRange =
 		splitBy("-")
-			.map(String::toInt)
-			.mapLeft(String::toInt)
-			.run { first..second }
+			.let { it.first.toInt()..it.second.toInt() }
 
 	fun String.intoRangePair(): Pair<IntRange, IntRange> =
 		splitBy(",")
-			.map(String::asRange)
-			.mapLeft(String::asRange)
+			.let { it.first.asRange() to it.second.asRange() }
 
 	fun part1(input: List<String>): Int =
 		input
@@ -93,8 +90,7 @@ fun main() {
 
 	val input = readInput("Day04")
 	println(part1(input))
-	println(part2(input))
-	// decreases execution time by one order
 	println(part1NoRanges(input))
+	println(part2(input))
 	println(part2NoRanges(input))
 }
